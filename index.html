@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple 授权专营店 · 会员体系优化方案</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+:root {
+  --bg:             #f8f6ff;
+  --surface:        #ffffff;
+  --border:         #e0d8ff;
+  --text-primary:   #1a1030;
+  --text-secondary: #6b5f8a;
+  --accent:         #6c47ff;
+  --accent-2:       #ff6584;
+  --accent-soft:    #ede8ff;
+  --font:           'Plus Jakarta Sans', sans-serif;
+  --radius:         12px;
+  --radius-sm:      8px;
+  --shadow-card:    0 2px 16px rgba(26, 16, 48, 0.07);
+  --ease:           cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  overflow: hidden;
+  background: #0f0a1e;
+  font-family: var(--font);
+}
+
+/* ===== VIEWPORT SCALING ===== */
+.slides-wrapper {
+  position: fixed;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* ===== SLIDE BASE ===== */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--bg);
+}
+.slide.active { opacity: 1; pointer-events: all; }
+
+/* ===== SHARED COMPONENTS ===== */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.tag.pink { background: #fff0f3; color: var(--accent-2); }
+
+.slide-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 52px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.slide-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+.slide-header-brand .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.slide-header-section {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.slide-body {
+  flex: 1;
+  padding: 36px 52px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+h2.display {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+p.lead {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-top: 10px;
+  max-width: 660px;
+}
+
+/* ===== SLIDE 1 — COVER ===== */
+#s1 {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.cover-orb-a {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108,71,255,.16) 0%, transparent 68%);
+  right: -120px; top: -140px;
+  pointer-events: none;
+}
+.cover-orb-b {
+  position: absolute;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,101,132,.13) 0%, transparent 68%);
+  right: 160px; bottom: -100px;
+  pointer-events: none;
+}
+.cover-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 72px 96px;
+}
+.cover-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cover-kicker::before {
+  content: '';
+  width: 22px; height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.cover-title {
+  font-size: 82px;
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--text-primary);
+}
+.cover-title .arr { color: var(--accent); font-weight: 300; }
+.cover-sub {
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 20px;
+  margin-bottom: 44px;
+  line-height: 1.6;
+}
+.cover-chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.chip.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ===== SLIDE 2 — PAIN POINTS ===== */
+#s2 { display: flex; flex-direction: column; }
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 26px;
+  flex: 1;
+}
+.pain-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.pain-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 3px 3px 0 0;
+}
+.pain-card.c2::after { background: var(--accent-2); }
+.pain-card.c3::after { background: #a78bfa; }
+.pain-num {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 18px;
+}
+.pain-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.pain-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* ===== SLIDE 3 — DUAL TRACK ===== */
+#s3 { display: flex; flex-direction: column; }
+.dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 22px;
+  flex: 1;
+}
+.track-card {
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.track-card.purple {
+  background: linear-gradient(140deg, #ede8ff 0%, #f5f3ff 100%);
+  border: 1px solid #d4c8ff;
+}
+.track-card.rose {
+  background: linear-gradient(140deg, #fff0f3 0%, #fff8fa 100%);
+  border: 1px solid #ffd6df;
+}
+.track-icon {
+  width: 44px; height: 44px;
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.track-icon.purple { background: var(--accent); }
+.track-icon.rose { background: var(--accent-2); }
+.track-name {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.track-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: -6px;
+}
+.track-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.track-detail {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(108,71,255,.1);
+  padding-top: 14px;
+}
+.track-card.rose .track-detail { border-top-color: rgba(255,101,132,.1); }
+
+/* ===== SLIDE 4 — GROWTH SYSTEM ===== */
+#s4 { display: flex; flex-direction: column; }
+.levels-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+.level-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.level-card.hero {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(108,71,255,.08), var(--shadow-card);
+  background: linear-gradient(160deg, #f5f3ff, #fff);
+}
+.level-card.top {
+  background: linear-gradient(140deg, #ede8ff, #f8f6ff);
+  border-color: #c4b5fd;
+}
+.level-emoji { font-size: 28px; margin-bottom: 10px; }
+.level-lv {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.level-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+.level-note { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+.nfc-bar {
+  margin-top: 22px;
+  background: linear-gradient(135deg, #ede8ff, #f5f3ff);
+  border: 1px solid #d4c8ff;
+  border-radius: var(--radius);
+  padding: 18px 26px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.nfc-bar .icon { font-size: 30px; flex-shrink: 0; }
+.nfc-bar h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+.nfc-bar p { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
+.nfc-tags { margin-left: auto; flex-shrink: 0; display: flex; gap: 6px; }
+
+/* ===== SLIDE 5 — ACTIVATION ===== */
+#s5 { display: flex; flex-direction: column; }
+.act-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 22px;
+  flex: 1;
+}
+.act-col { display: flex; flex-direction: column; gap: 10px; }
+.act-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.act-col-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.act-col-title.purple { color: var(--accent); }
+.act-col-title.rose { color: var(--accent-2); }
+.act-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  box-shadow: var(--shadow-card);
+}
+.act-item.rose { border-color: #ffd6df; }
+.act-item-icon { font-size: 19px; flex-shrink: 0; margin-top: 1px; }
+.act-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+.act-item-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+/* ===== SLIDE 6 — COMPOUND ===== */
+#s6 { display: flex; flex-direction: column; }
+.compound-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 22px;
+  flex: 1;
+}
+.compound-card {
+  border-radius: var(--radius);
+  padding: 34px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.compound-card.purple {
+  background: linear-gradient(140deg, #ede8ff 0%, #f5f3ff 100%);
+  border: 1px solid #d4c8ff;
+}
+.compound-card.rose {
+  background: linear-gradient(140deg, #fff0f3 0%, #fff8fa 100%);
+  border: 1px solid #ffd6df;
+}
+.compound-big {
+  font-size: 60px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.compound-card.purple .compound-big { color: var(--accent); }
+.compound-card.rose .compound-big { color: var(--accent-2); }
+.compound-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: -4px;
+}
+.compound-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+.compound-detail {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(108,71,255,.12);
+  padding-top: 14px;
+  margin-top: 4px;
+}
+.compound-card.rose .compound-detail { border-top-color: rgba(255,101,132,.12); }
+.compound-detail strong { font-weight: 700; color: var(--text-primary); }
+
+/* ===== SLIDE 7 — RISK CONTROL ===== */
+#s7 { display: flex; flex-direction: column; }
+.risk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 18px;
+}
+.risk-col { display: flex; flex-direction: column; gap: 10px; }
+.risk-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.risk-col-title::after { content: ''; flex: 1; height: 1px; }
+.risk-col-title.purple { color: var(--accent); }
+.risk-col-title.purple::after { background: #d4c8ff; }
+.risk-col-title.rose { color: var(--accent-2); }
+.risk-col-title.rose::after { background: #ffd6df; }
+.risk-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  box-shadow: var(--shadow-card);
+}
+.risk-item.rose { border-color: #ffd6df; }
+.risk-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.risk-dot.purple { background: var(--accent); }
+.risk-dot.rose { background: var(--accent-2); }
+.risk-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.risk-item-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+/* ===== SLIDE 8 — LAUNCH ===== */
+#s8 { display: flex; flex-direction: column; }
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  box-shadow: var(--shadow-card);
+}
+.step-card.cta {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(108,71,255,.08), var(--shadow-card);
+}
+.step-big {
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--accent-soft);
+  margin-bottom: 10px;
+}
+.step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.step-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.step-list li {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+.step-list li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+.closing {
+  margin-top: 24px;
+  background: linear-gradient(135deg, var(--accent) 0%, #9c6fff 100%);
+  border-radius: var(--radius);
+  padding: 18px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.closing-text { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+.closing-sub { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 2px; }
+
+/* ===== NAVIGATION ===== */
+.slide-dots {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 100;
+}
+.ndot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(108,71,255,.25);
+  cursor: pointer;
+  transition: all .3s;
+  border: none; padding: 0;
+}
+.ndot.active { background: var(--accent); transform: scale(1.45); }
+.slide-counter {
+  position: fixed;
+  bottom: 19px;
+  right: 44px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(107,95,138,.55);
+  z-index: 100;
+  font-family: var(--font);
+}
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px; height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: all .2s;
+  color: var(--text-secondary);
+  font-size: 17px;
+  opacity: 0;
+}
+.slides-wrapper:hover .nav-arrow { opacity: 1; }
+.nav-arrow:hover { background: #fff; border-color: var(--accent); color: var(--accent); }
+.nav-arrow.lft { left: 14px; }
+.nav-arrow.rgt { right: 14px; }
+
+/* ===== SLIDE TOC ===== */
+#s-toc { display: flex; flex-direction: column; }
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 32px;
+  margin-top: 28px;
+  flex: 1;
+  align-content: start;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s;
+}
+.toc-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(108,71,255,.07), var(--shadow-card);
+}
+.toc-num {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--accent-soft);
+  flex-shrink: 0;
+  width: 36px;
+  text-align: right;
+  line-height: 1;
+}
+.toc-item:hover .toc-num { color: var(--accent); }
+.toc-divider { width: 1px; height: 28px; background: var(--border); flex-shrink: 0; }
+.toc-label { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.toc-sub { font-size: 11px; color: var(--text-secondary); }
+
+/* ===== SLIDE THANKS ===== */
+#s-thanks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.thanks-orb-a {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108,71,255,.15) 0%, transparent 68%);
+  left: -100px; top: -80px;
+  pointer-events: none;
+}
+.thanks-orb-b {
+  position: absolute;
+  width: 380px; height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,101,132,.12) 0%, transparent 68%);
+  right: -60px; bottom: -60px;
+  pointer-events: none;
+}
+.thanks-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.thanks-big { display: none; }
+.thanks-en {
+  font-size: 108px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text-primary);
+  text-transform: none;
+}
+.thanks-line {
+  width: 48px; height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  margin: 28px auto;
+}
+.thanks-tagline {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 480px;
+}
+.thanks-tagline strong { color: var(--text-primary); font-weight: 700; }
+.thanks-chips {
+  display: flex;
+  gap: 10px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="slides-wrapper" id="slidesWrapper">
+
+  <!-- ── SLIDE 1 · Cover ─────────────────────────────── -->
+  <div class="slide" id="s1">
+    <div class="cover-orb-a"></div>
+    <div class="cover-orb-b"></div>
+    <div class="cover-inner">
+      <div class="cover-kicker" data-a="up">Apple 授权专营店 · 内部提案 · 2026</div>
+      <div class="cover-title" data-a="up">
+        从交易积分<br><span class="arr">→</span>&nbsp;行为养成
+      </div>
+      <div class="cover-sub" data-a="up">会员体系优化方案 · 双轨制驱动重构</div>
+      <div class="cover-chips" data-a="up">
+        <div class="chip filled">双轨驱动</div>
+        <div class="chip">成长值 × 能量豆</div>
+        <div class="chip">实体 NFC 勋章</div>
+        <div class="chip">LBS 风控</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE TOC · 目录 ─────────────────────────────── -->
+  <div class="slide" id="s-toc">
+    <div class="slide-header">
+      <div class="slide-header-brand"><div class="dot"></div>Apple 授权专营店 · 会员体系优化</div>
+      <div class="slide-header-section">内容目录</div>
+    </div>
+    <div class="slide-body">
+      <div data-a="up">
+        <div class="eyebrow">方案结构</div>
+        <h2 class="display">全览 · 7 个模块</h2>
+      </div>
+      <div class="toc-grid" data-a="stagger">
+        <div class="toc-item" data-goto="s2">
+          <div class="toc-num">01</div>
+          <div class="toc-divider"></div>
+          <div><div class="toc-label">现状诊断</div><div class="toc-sub">积分体系的三重矛盾</div></div>
+        </div>
+        <div class="toc-item" data-goto="s3">
+          <div class="toc-num">02</div>
+          <div class="toc-divider"></div>
+          <div><div class="toc-label">解决框架</div><div class="toc-sub">双轨制：拆分会员价值</div></div>
+        </div>
+        <div class="toc-item" data-goto="s4">
+          <div class="toc-num">03</div>
+          <div class="toc-divider"></div>
+          <div><div class="toc-label">成长体系</div><div class="toc-sub">四级极客身份 × 实体收集</div></div>
+        </div>
+        <div class="toc-item" data-goto="s5">
+          <div class="toc-num">04</div>
+          <div class="toc-divider"></div>
+          <div><div class="toc-label">促活设计</div><div class="toc-sub">打破「必须消费」限制</div></div>
+        </div>
+        <div class="toc-item" data-goto="s6">
+          <div class="toc-num">05</div>
+          <div class="toc-divider"></div>
+          <div><div class="toc-label">复利模型</div><div class="toc-sub">让价值持续滚雪球</div></div>
+        </div>
+        <div class="toc-item" data-goto="s7">
+          <div class="toc-num">06</div>
+          <div class="toc-divider"></div>
+          <div><div class="toc-label">风控体系</div><div class="toc-sub">技术 × 运营双层防护</div></div>
+        </div>
+        <div class="toc-item" data-goto="s8">
+          <div class="toc-num">07</div>
+          <div class="toc-divider"></div>
+          <div><div class="toc-label">落地执行</div><div class="toc-sub">四步启动清单</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 2 · Pain Points ──────────────────────── -->
+  <div class="slide" id="s2">
+    <div class="slide-header">
+      <div class="slide-header-brand"><div class="dot"></div>Apple 授权专营店 · 会员体系优化</div>
+      <div class="slide-header-section">现状诊断</div>
+    </div>
+    <div class="slide-body">
+      <div data-a="up">
+        <div class="eyebrow">问题背景</div>
+        <h2 class="display">积分体系的三重矛盾</h2>
+        <p class="lead">现有体系停留在"消费返利"层面，无法建立用户粘性。<br>不做银行，要做 <strong style="color:var(--text-primary);font-weight:700;">Apple 玩家俱乐部</strong>。</p>
+      </div>
+      <div class="pain-grid" data-a="stagger">
+        <div class="pain-card">
+          <div class="pain-num">01</div>
+          <div class="pain-title">积分没有价值</div>
+          <div class="pain-desc">权益单一，只有消费才能积分，换不到用户真正想要的东西。积分长期沉睡。</div>
+        </div>
+        <div class="pain-card c2">
+          <div class="pain-num">02</div>
+          <div class="pain-title">用户不够活跃</div>
+          <div class="pain-desc">消费间隔长，中间无高频行为触点，用户与门店几乎失联。</div>
+        </div>
+        <div class="pain-card c3">
+          <div class="pain-num">03</div>
+          <div class="pain-title">风控严重缺失</div>
+          <div class="pain-desc">黄牛可批量刷分，员工可截流权益。无技术保障，核销全靠人工自觉。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 3 · Dual Track ───────────────────────── -->
+  <div class="slide" id="s3">
+    <div class="slide-header">
+      <div class="slide-header-brand"><div class="dot"></div>Apple 授权专营店 · 会员体系优化</div>
+      <div class="slide-header-section">解决框架</div>
+    </div>
+    <div class="slide-body">
+      <div data-a="up">
+        <div class="eyebrow">核心方案</div>
+        <h2 class="display">双轨制：拆分会员价值</h2>
+        <p class="lead">面子与里子分开经营，互不消耗，相互驱动用户留存。</p>
+      </div>
+      <div class="dual-grid" data-a="stagger">
+        <div class="track-card purple">
+          <div class="track-icon purple">⭐</div>
+          <div>
+            <div class="track-name">成长值</div>
+            <div class="track-sub">经验条 · 决定等级与勋章</div>
+          </div>
+          <div class="track-tags">
+            <span class="tag">面子 / 身份</span>
+            <span class="tag">只增不减</span>
+            <span class="tag">泡泡玛特集齐感</span>
+          </div>
+          <div class="track-detail">
+            模仿游戏经验值逻辑，成长值只涨不跌（或按年重置）。打造等级身份认同与勋章收集情绪价值。用户不会因"兑换"而降级。
+          </div>
+        </div>
+        <div class="track-card rose">
+          <div class="track-icon rose">⚡</div>
+          <div>
+            <div class="track-name">能量豆</div>
+            <div class="track-sub">积分货币 · 用于兑换权益</div>
+          </div>
+          <div class="track-tags">
+            <span class="tag pink">里子 / 实惠</span>
+            <span class="tag pink">高频获取消耗</span>
+            <span class="tag pink">美团金币逻辑</span>
+          </div>
+          <div class="track-detail">
+            强调高频获取、高频消耗。签到、体验、旧机估值都能得豆；咖啡、服务、配件都能换。解决"积分没处花"的根本问题。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 4 · Growth System ────────────────────── -->
+  <div class="slide" id="s4">
+    <div class="slide-header">
+      <div class="slide-header-brand"><div class="dot"></div>Apple 授权专营店 · 会员体系优化</div>
+      <div class="slide-header-section">成长体系</div>
+    </div>
+    <div class="slide-body">
+      <div data-a="up">
+        <div class="eyebrow">等级 + 勋章</div>
+        <h2 class="display">四级极客身份 × 实体收集</h2>
+      </div>
+      <div class="levels-row" data-a="stagger" style="margin-top:20px;">
+        <div class="level-card">
+          <div class="level-emoji">🎓</div>
+          <div class="level-lv">LV 1</div>
+          <div class="level-name">Siri 学徒</div>
+          <div class="level-note">注册即得<br>入门身份</div>
+        </div>
+        <div class="level-card">
+          <div class="level-emoji">💡</div>
+          <div class="level-lv">LV 2</div>
+          <div class="level-name">Genius 天才</div>
+          <div class="level-note">累计成长值达标<br>解锁免费服务</div>
+        </div>
+        <div class="level-card hero">
+          <div class="level-emoji">🚀</div>
+          <div class="level-lv">LV 3</div>
+          <div class="level-name">Pro 专家</div>
+          <div class="level-note">核心高净值用户<br>专属订阅权益</div>
+          <div style="margin-top:8px;"><span class="tag" style="font-size:9px;">壳膜无忧包</span></div>
+        </div>
+        <div class="level-card top">
+          <div class="level-emoji">🏆</div>
+          <div class="level-lv">LV 4</div>
+          <div class="level-name">Ultra 极限</div>
+          <div class="level-note">顶级信仰用户<br>全店限量特权</div>
+          <div style="margin-top:8px;"><span class="tag" style="font-size:9px;">限量实体勋章</span></div>
+        </div>
+      </div>
+      <div class="nfc-bar" data-a="up">
+        <div class="icon">🏅</div>
+        <div>
+          <h4>实体 NFC 勋章 · 核心爆点</h4>
+          <p>达成成就后必须到店领取的高颜值金属徽章。碰一下店员 iPad 即可亮码积分或核销优惠 — 既是收藏品，也是特权钥匙。</p>
+        </div>
+        <div class="nfc-tags">
+          <span class="tag">早鸟</span>
+          <span class="tag">配件大师</span>
+          <span class="tag">全家桶</span>
+          <span class="tag">色彩收集者</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 5 · Activation ───────────────────────── -->
+  <div class="slide" id="s5">
+    <div class="slide-header">
+      <div class="slide-header-brand"><div class="dot"></div>Apple 授权专营店 · 会员体系优化</div>
+      <div class="slide-header-section">促活设计</div>
+    </div>
+    <div class="slide-body">
+      <div data-a="up">
+        <div class="eyebrow">高频带低频</div>
+        <h2 class="display">打破「必须消费」限制</h2>
+      </div>
+      <div class="act-grid" data-a="stagger">
+        <div class="act-col">
+          <div class="act-col-title purple">⚡ 能量豆 · 获取方式</div>
+          <div class="act-item">
+            <div class="act-item-icon">📍</div>
+            <div>
+              <div class="act-item-title">到店签到（高频）</div>
+              <div class="act-item-desc">进店连 Wi-Fi 或蓝牙 Beacon，自动签到得豆。无需消费，到场即奖励。</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="act-item-icon">🥽</div>
+            <div>
+              <div class="act-item-title">体验打卡（中频）</div>
+              <div class="act-item-desc">体验 Vision Pro 15 分钟，或试用新 iPad 后发朋友圈，获得豆奖励。</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="act-item-icon">📱</div>
+            <div>
+              <div class="act-item-title">旧机估值（获客）</div>
+              <div class="act-item-desc">每周测一次旧手机回收价格得豆，同时为门店自动获取以旧换新销售线索。</div>
+            </div>
+          </div>
+        </div>
+        <div class="act-col">
+          <div class="act-col-title rose">🎯 能量豆 · 消耗流量钩</div>
+          <div class="act-item rose">
+            <div class="act-item-icon">☕</div>
+            <div>
+              <div class="act-item-title">50豆 + 9.9元 兑换咖啡</div>
+              <div class="act-item-desc">硬通货钩子。低成本把人引进店，来了就可能顺手买根线或贴个膜。</div>
+            </div>
+          </div>
+          <div class="act-item rose">
+            <div class="act-item-icon">💾</div>
+            <div>
+              <div class="act-item-title">数据迁移（高痛点服务）</div>
+              <div class="act-item-desc">LV2 以上或消耗大量积分可兑换免费迁移。官方收费项目转化为会员高价值权益。</div>
+            </div>
+          </div>
+          <div class="act-item rose">
+            <div class="act-item-icon">✨</div>
+            <div>
+              <div class="act-item-title">设备清洁保养</div>
+              <div class="act-item-desc">积分兑换 AirPods 超声波清洗或机身抛光，门店成本低，用户感知价值高。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 6 · Compound Model ──────────────────── -->
+  <div class="slide" id="s6">
+    <div class="slide-header">
+      <div class="slide-header-brand"><div class="dot"></div>Apple 授权专营店 · 会员体系优化</div>
+      <div class="slide-header-section">复利模型</div>
+    </div>
+    <div class="slide-body">
+      <div data-a="up">
+        <div class="eyebrow">长期留存</div>
+        <h2 class="display">让价值持续滚雪球</h2>
+      </div>
+      <div class="compound-grid" data-a="stagger">
+        <div class="compound-card purple">
+          <div class="compound-big">3mo</div>
+          <div class="compound-kicker">配件订阅制 · Pro 专属</div>
+          <div class="compound-name">壳膜无忧包</div>
+          <div class="compound-detail">
+            成为 Pro 会员，一年内每 3 个月免费领一张高品质钢化膜，或购买手机壳享 5 折优惠。<br><br>
+            <strong>锁客效果：</strong>全年 4 次确定性进店理由，配件复购率大幅提升。
+          </div>
+        </div>
+        <div class="compound-card rose">
+          <div class="compound-big">+20%</div>
+          <div class="compound-kicker">积分膨胀计划 · 年底专属</div>
+          <div class="compound-name">积分锁定增值</div>
+          <div class="compound-detail">
+            年底积分不清零，选择"锁定 3 个月"，积分增值 20%，可兑换高价值配件（如 HomePod mini）。<br><br>
+            <strong>留存效果：</strong>锁定用户未来 3 个月的注意力与期待感。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 7 · Risk Control ─────────────────────── -->
+  <div class="slide" id="s7">
+    <div class="slide-header">
+      <div class="slide-header-brand"><div class="dot"></div>Apple 授权专营店 · 会员体系优化</div>
+      <div class="slide-header-section">风控体系</div>
+    </div>
+    <div class="slide-body">
+      <div data-a="up">
+        <div class="eyebrow">安全保障</div>
+        <h2 class="display">技术 × 运营双层防护</h2>
+        <p class="lead">技术设限 + 用户监督 + 流程透明，三重机制确保权益不被黄牛与内鬼侵蚀。</p>
+      </div>
+      <div class="risk-grid" data-a="stagger" style="margin-top:16px;">
+        <div class="risk-col">
+          <div class="risk-col-title purple">🔒 技术硬风控</div>
+          <div class="risk-item">
+            <div class="risk-dot purple"></div>
+            <div>
+              <div class="risk-item-title">LBS 地理围栏</div>
+              <div class="risk-item-desc">GPS 定位须在门店 500 米内，才允许签到或核销到店权益。异地刷分直接屏蔽。</div>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-dot purple"></div>
+            <div>
+              <div class="risk-item-title">微信授权登录</div>
+              <div class="risk-item-desc">必须通过微信一键授权注册，过滤机器账号与批量黄牛操作。</div>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-dot purple"></div>
+            <div>
+              <div class="risk-item-title">频次硬限制</div>
+              <div class="risk-item-desc">同一账号：每天签到 1 次，每月核销 2 次免费服务。超出自动拒绝。</div>
+            </div>
+          </div>
+        </div>
+        <div class="risk-col">
+          <div class="risk-col-title rose">🛡️ 运营软约束</div>
+          <div class="risk-item rose">
+            <div class="risk-dot rose"></div>
+            <div>
+              <div class="risk-item-title">核销码在用户手中</div>
+              <div class="risk-item-desc">禁止店员询问手机号代积分。用户出示动态会员码，店员扫码核销，流程可追溯。</div>
+            </div>
+          </div>
+          <div class="risk-item rose">
+            <div class="risk-dot rose"></div>
+            <div>
+              <div class="risk-item-title">实时强提醒</div>
+              <div class="risk-item-desc">积分变动 10 秒内推送微信通知；收银小票打印提示用户主动核对记录。</div>
+            </div>
+          </div>
+          <div class="risk-item rose">
+            <div class="risk-dot rose"></div>
+            <div>
+              <div class="risk-item-title">举报有奖机制</div>
+              <div class="risk-item-desc">小票印制："店员拒绝给积分？举报核实奖励 200 元" — 以用户监督替代内部审查。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 8 · Launch ───────────────────────────── -->
+  <div class="slide" id="s8">
+    <div class="slide-header">
+      <div class="slide-header-brand"><div class="dot"></div>Apple 授权专营店 · 会员体系优化</div>
+      <div class="slide-header-section">落地执行</div>
+    </div>
+    <div class="slide-body">
+      <div data-a="up">
+        <div class="eyebrow">执行路径</div>
+        <h2 class="display">四步启动清单</h2>
+      </div>
+      <div class="steps-row" data-a="stagger" style="margin-top:18px;">
+        <div class="step-card">
+          <div class="step-big">01</div>
+          <div class="step-title">系统开发</div>
+          <ul class="step-list">
+            <li>上线双轨制（成长值 + 能量豆）</li>
+            <li>配置 LBS 地理围栏</li>
+            <li>开启微信服务通知推送</li>
+          </ul>
+        </div>
+        <div class="step-card">
+          <div class="step-big">02</div>
+          <div class="step-title">物料准备</div>
+          <ul class="step-list">
+            <li>设计实体 NFC 勋章（首批 500–1000 枚）</li>
+            <li>采购咖啡/饮品券作硬通货</li>
+            <li>制作等级证书与贴纸套装</li>
+          </ul>
+        </div>
+        <div class="step-card">
+          <div class="step-big">03</div>
+          <div class="step-title">门店培训</div>
+          <ul class="step-list">
+            <li>统一话术："请出示会员码，系统自动核销"</li>
+            <li>明确禁止代客操作积分</li>
+            <li>考核上岗，签署操作规范</li>
+          </ul>
+        </div>
+        <div class="step-card cta">
+          <div class="step-big" style="color:#d4c8ff;">04</div>
+          <div class="step-title">启动活动 🚀</div>
+          <ul class="step-list">
+            <li>结合新品发售或会员日节点</li>
+            <li>到店打卡送实体勋章</li>
+            <li>引爆第一波进店打卡流量</li>
+          </ul>
+        </div>
+      </div>
+      <div class="closing" data-a="up">
+        <div>
+          <div class="closing-text">把授权店变成有温度的 Apple 玩家俱乐部</div>
+          <div class="closing-sub">有玩法 · 有价值 · 有安全保障</div>
+        </div>
+        <div style="font-size:26px;">🎯</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE THANKS · 感谢 ───────────────────────────── -->
+  <div class="slide" id="s-thanks">
+    <div class="thanks-orb-a"></div>
+    <div class="thanks-orb-b"></div>
+    <div class="thanks-inner">
+      <div class="thanks-en" data-a="up">Thank You</div>
+      <div class="thanks-line" data-a="up"></div>
+      <div class="thanks-tagline" data-a="up">
+        把 Apple 授权店从冷冰冰的"卖货场"<br>
+        变成有温度、有玩法、有安全保障的<br>
+        <strong>Apple 玩家俱乐部</strong>
+      </div>
+      <div class="thanks-chips" data-a="up">
+        <div class="chip">双轨驱动</div>
+        <div class="chip">成长值 × 能量豆</div>
+        <div class="chip">实体 NFC 勋章</div>
+        <div class="chip filled">期待交流</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <button class="nav-arrow lft" id="prevBtn" aria-label="上一张">‹</button>
+  <button class="nav-arrow rgt" id="nextBtn" aria-label="下一张">›</button>
+  <nav class="slide-dots" id="dots" aria-label="幻灯片导航"></nav>
+  <div class="slide-counter" id="counter">1 / 10</div>
+
+</div><!-- end slides-wrapper -->
+
+<script>
+// === VIEWPORT SCALING ===
+const SLIDE_W = 1280, SLIDE_H = 720;
+const wrap = document.getElementById('slidesWrapper');
+
+function scale() {
+  const s = Math.min(window.innerWidth / SLIDE_W, window.innerHeight / SLIDE_H);
+  wrap.style.transform = `scale(${s})`;
+  wrap.style.transformOrigin = '0 0';
+  wrap.style.left = ((window.innerWidth  - SLIDE_W * s) / 2) + 'px';
+  wrap.style.top  = ((window.innerHeight - SLIDE_H * s) / 2) + 'px';
+}
+window.addEventListener('resize', scale);
+document.addEventListener('fullscreenchange', scale);
+scale();
+
+// === SLIDES ===
+const slides = [...document.querySelectorAll('.slide')];
+let cur = 0, busy = false;
+
+// Build dots
+const dotsEl = document.getElementById('dots');
+slides.forEach((_, i) => {
+  const d = document.createElement('button');
+  d.className = 'ndot' + (i === 0 ? ' active' : '');
+  d.setAttribute('aria-label', `第 ${i+1} 张`);
+  d.addEventListener('click', e => { e.stopPropagation(); goTo(i); });
+  dotsEl.appendChild(d);
+});
+
+function syncUI(i) {
+  document.querySelectorAll('.ndot').forEach((d, j) => d.classList.toggle('active', j === i));
+  document.getElementById('counter').textContent = `${i+1} / ${slides.length}`;
+}
+
+function animIn(slide) {
+  const ups = [...slide.querySelectorAll('[data-a="up"]')];
+  const stgs = [...slide.querySelectorAll('[data-a="stagger"]')];
+  gsap.set(ups, { opacity: 0, y: 20 });
+  stgs.forEach(g => { gsap.set(g, { opacity: 0, y: 16 }); gsap.set(g.children, { opacity: 0, y: 14 }); });
+
+  const tl = gsap.timeline();
+  ups.forEach((el, i) => tl.to(el, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, i * 0.1));
+  const base = ups.length * 0.1 + 0.05;
+  stgs.forEach((g, gi) => {
+    tl.to(g, { opacity: 1, y: 0, duration: 0.38, ease: 'power2.out' }, base + gi * 0.04);
+    tl.to(g.children, { opacity: 1, y: 0, duration: 0.42, stagger: 0.07, ease: 'power2.out' }, base + gi * 0.04 + 0.06);
+  });
+}
+
+function goTo(idx) {
+  if (idx === cur || busy || idx < 0 || idx >= slides.length) return;
+  busy = true;
+  const dir = idx > cur ? 1 : -1;
+  const leaving = slides[cur];
+  const entering = slides[idx];
+  gsap.to(leaving, { opacity: 0, x: -28 * dir, duration: 0.32, ease: 'power2.in',
+    onComplete: () => { leaving.classList.remove('active'); gsap.set(leaving, { x: 0 }); }
+  });
+  gsap.set(entering, { opacity: 0, x: 36 * dir });
+  entering.classList.add('active');
+  gsap.to(entering, { opacity: 1, x: 0, duration: 0.42, ease: 'power2.out', delay: 0.1,
+    onComplete: () => { busy = false; animIn(entering); }
+  });
+  cur = idx;
+  syncUI(cur);
+}
+
+const next = () => goTo(cur + 1);
+const prev = () => goTo(cur - 1);
+
+// TOC item click — jump to slide by ID
+document.querySelectorAll('[data-goto]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    const target = document.getElementById(el.dataset.goto);
+    if (target) goTo(slides.indexOf(target));
+  });
+});
+
+// Init
+slides[0].classList.add('active');
+animIn(slides[0]);
+syncUI(0);
+
+// Controls
+document.getElementById('nextBtn').addEventListener('click', e => { e.stopPropagation(); next(); });
+document.getElementById('prevBtn').addEventListener('click', e => { e.stopPropagation(); prev(); });
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+});
+
+document.addEventListener('click', e => {
+  if (e.target.closest('button, a, [data-no-nav]')) return;
+  e.clientX > window.innerWidth / 2 ? next() : prev();
+});
+
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+document.addEventListener('touchend', e => {
+  const d = tx - e.changedTouches[0].clientX;
+  if (Math.abs(d) > 50) d > 0 ? next() : prev();
+}, { passive: true });
+
+let wc = false;
+document.addEventListener('wheel', e => {
+  if (wc) return;
+  wc = true; setTimeout(() => wc = false, 800);
+  e.deltaY > 0 ? next() : prev();
+}, { passive: true });
+</script>
+</body>
+</html>
