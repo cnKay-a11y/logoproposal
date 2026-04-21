@@ -354,23 +354,54 @@ html,body{{width:100%;height:100%;overflow:hidden;background:#0d0d0d;}}
 
 <!-- ══ 10 BADGES ══ -->
 <div class="slide" id="s10">
-  <div class="two-col">
-    <div class="col-l" style="flex:0 0 32%;">
-      <div class="ey a1">04 · 应用样机</div>
-      <div class="h2 a2">五方案<br>徽章对比</div>
+  <div class="two-col" style="gap:clamp(20px,3vw,48px);">
+    <div class="col-l" style="flex:0 0 22%;">
+      <div class="ey a1">04 · 方案汇总</div>
+      <div class="h2 a2">LOGO<br>方案汇总</div>
       <div class="rule aRU"></div>
-      <div class="bt a3" style="max-width:22ch;">相同圆形徽章形态下的五方案对比，直观感受各方向气质差异。</div>
-      <div class="bt a4" style="max-width:22ch;margin-top:4px;">徽章可用于：球拍包挂件、帽徽、穿线机铭牌、会员证书压章。</div>
+      <div class="bt a3" style="max-width:18ch;line-height:1.8;">五个方向并列呈现，感受各方案的气质与差异。</div>
     </div>
-    <div class="col-r" style="justify-content:center;">
-      <div class="bg-row a2">
-        <div class="bi"><div class="bcirc" style="width:clamp(106px,15.5vw,162px);height:clamp(106px,15.5vw,162px);background:#1a1a1a;border:2px solid #333;"><img src="{img1}" style="width:82%;object-fit:contain;" alt=""></div><div class="blbl">方案一</div><div class="bsub">莫比乌斯之环</div></div>
-        <div class="bi"><div class="bcirc" style="width:clamp(106px,15.5vw,162px);height:clamp(106px,15.5vw,162px);background:#f0f0f0;border:2px solid #ddd;"><img src="{img2}" style="width:82%;object-fit:contain;" alt=""></div><div class="blbl">方案二</div><div class="bsub">骑士勋章</div></div>
-        <div class="bi"><div class="bcirc" style="width:clamp(106px,15.5vw,162px);height:clamp(106px,15.5vw,162px);background:#f5f5f5;border:2px solid #e0e0e0;"><img src="{img3}" style="width:82%;object-fit:contain;" alt=""></div><div class="blbl">方案三</div><div class="bsub">幻视立方</div></div>
+    <div class="col-r a2" style="justify-content:center;gap:clamp(10px,1.6vh,18px);">
+      <!-- row 1: 3 cards -->
+      <div style="display:flex;gap:clamp(10px,1.6vw,20px);justify-content:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:clamp(140px,18.5vw,220px);height:clamp(100px,13.5vh,158px);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform .35s ease;cursor:zoom-in;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">
+            <img src="{img1}" style="width:80%;height:80%;object-fit:contain;" alt="">
+          </div>
+          <div style="font-family:var(--B);font-size:clamp(.5rem,.78vw,.66rem);font-weight:600;color:var(--w);letter-spacing:.06em;">方案一</div>
+          <div style="font-family:var(--B);font-size:clamp(.42rem,.62vw,.54rem);color:rgba(214,48,49,.8);letter-spacing:.06em;">莫比乌斯之环</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:clamp(140px,18.5vw,220px);height:clamp(100px,13.5vh,158px);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform .35s ease;cursor:zoom-in;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">
+            <img src="{img2}" style="width:80%;height:80%;object-fit:contain;" alt="">
+          </div>
+          <div style="font-family:var(--B);font-size:clamp(.5rem,.78vw,.66rem);font-weight:600;color:var(--w);letter-spacing:.06em;">方案二</div>
+          <div style="font-family:var(--B);font-size:clamp(.42rem,.62vw,.54rem);color:rgba(214,48,49,.8);letter-spacing:.06em;">骑士勋章</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:clamp(140px,18.5vw,220px);height:clamp(100px,13.5vh,158px);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform .35s ease;cursor:zoom-in;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">
+            <img src="{img3}" style="width:80%;height:80%;object-fit:contain;" alt="">
+          </div>
+          <div style="font-family:var(--B);font-size:clamp(.5rem,.78vw,.66rem);font-weight:600;color:var(--w);letter-spacing:.06em;">方案三</div>
+          <div style="font-family:var(--B);font-size:clamp(.42rem,.62vw,.54rem);color:rgba(214,48,49,.8);letter-spacing:.06em;">幻视立方</div>
+        </div>
       </div>
-      <div class="bg-row a3">
-        <div class="bi"><div class="bcirc" style="width:clamp(106px,15.5vw,162px);height:clamp(106px,15.5vw,162px);background:#111;border:2px solid var(--red);box-shadow:0 0 0 clamp(4px,.7vw,8px) rgba(214,48,49,.1);"><img src="{img4}" style="width:82%;object-fit:contain;" alt=""></div><div class="blbl">方案四</div><div class="bsub">核心之结</div></div>
-        <div class="bi"><div class="bcirc" style="width:clamp(106px,15.5vw,162px);height:clamp(106px,15.5vw,162px);background:#f5f5f5;border:2px solid #e0e0e0;"><img src="{img5}" style="width:82%;object-fit:contain;" alt=""></div><div class="blbl">方案五</div><div class="bsub">轨迹之线</div></div>
+      <!-- row 2: 2 cards centered -->
+      <div style="display:flex;gap:clamp(10px,1.6vw,20px);justify-content:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:clamp(140px,18.5vw,220px);height:clamp(100px,13.5vh,158px);background:#111;border:1.5px solid var(--red);border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform .35s ease;cursor:zoom-in;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">
+            <img src="{img4}" style="width:80%;height:80%;object-fit:contain;" alt="">
+          </div>
+          <div style="font-family:var(--B);font-size:clamp(.5rem,.78vw,.66rem);font-weight:600;color:var(--w);letter-spacing:.06em;">方案四</div>
+          <div style="font-family:var(--B);font-size:clamp(.42rem,.62vw,.54rem);color:rgba(214,48,49,.8);letter-spacing:.06em;">核心之结</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:clamp(140px,18.5vw,220px);height:clamp(100px,13.5vh,158px);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform .35s ease;cursor:zoom-in;" onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">
+            <img src="{img5}" style="width:80%;height:80%;object-fit:contain;" alt="">
+          </div>
+          <div style="font-family:var(--B);font-size:clamp(.5rem,.78vw,.66rem);font-weight:600;color:var(--w);letter-spacing:.06em;">方案五</div>
+          <div style="font-family:var(--B);font-size:clamp(.42rem,.62vw,.54rem);color:rgba(214,48,49,.8);letter-spacing:.06em;">轨迹之线</div>
+        </div>
       </div>
     </div>
   </div>
